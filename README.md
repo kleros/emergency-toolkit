@@ -1,2 +1,92 @@
-# emergency-toolkit
-Colllection of tools for incidents and other emergencies.
+# Emergency Toolkit
+A collection of tools for incidents and other emergencies.
+
+## Setup
+As usual:
+1. `yarn install`
+1. `cp .env.example .env`
+1. Edit `.env` with your keys
+
+## Resending a stuck transaction
+
+
+### Private key
+You must have access to the private key used to send the transaction.
+
+For example if the Court's Action Callback Bot has a transaction pending, typically because the gas was set too low, you must set the `.env` variable `PRIVATE_KEY` corresponding to bot's private key.
+
+### Hardhat task `resend-tx`
+
+**Overview**
+```bash
+$ yarn hardhat resend-tx --help
+Hardhat version 2.9.6
+
+Usage: hardhat [GLOBAL OPTIONS] resend-tx --fee-per-gas <STRING> --priority-fee-per-gas <STRING> --txid <STRING>
+
+OPTIONS:
+
+  --fee-per-gas         	The fee per gas in gwei. 
+  --priority-fee-per-gas	The priority fee in gwei. 
+  --txid                	The transaction identifier 
+
+resend-tx: Resends a transaction
+
+For global options help run: hardhat help
+```
+
+:warning: In addition to the these task-specific options, we need to specify the `--network` global option.
+
+**Example**
+Once you have identified a stuck transaction, pass it via `--txid`.
+
+```bash
+$ yarn hardhat resend-tx --network mainnet --txid 0x04dd7bcd067c7157517314601721426848737a17452013935bae73aa8b3c3908  --fee-per-gas 35 --priority-fee-per-gas 2
+Original Tx: {
+  hash: '0x04dd7bcd067c7157517314601721426848737a17452013935bae73aa8b3c3908',
+  type: 2,
+  accessList: [],
+  blockHash: null,
+  blockNumber: null,
+  transactionIndex: null,
+  confirmations: 0,
+  from: '0x4D2f8c3b4052aCA0360a50ae9B47cFC084cd1E28',
+  gasPrice: [BigNumber],
+  maxPriorityFeePerGas: [BigNumber],
+  maxFeePerGas: [BigNumber],
+  gasLimit: [BigNumber],
+  to: '0x82458d1C812D7c930Bb3229c9e159cbabD9AA8Cb',
+  value: [BigNumber],
+  nonce: 13486,
+  data: '0xa8f0802e000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000000000000000000000a000000000000000000000000000000000000000000000000000000000000000e00000000000000000000000000000000000000000000000000000000000000001000000000000000000000000e0e1bc8c6cd1b81993e2fcfb80832d814886ea3800000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000024974e527a000000000000000000000000000000000000000000000000000000000000001500000000000000000000000000000000000000000000000000000000',
+  r: '0x7f363cb4277baa395cba846058fa48081d0975a6922052720c33be49853bfd75',
+  s: '0x6352dad094013987d6558fd84706b933232f1e89f76ba87bcd21fa5b46b2ba1b',
+  v: 0,
+  creates: null,
+  chainId: 1,
+  wait: [Function (anonymous)]
+}
+Resent Tx: {
+  type: 2,
+  chainId: 1,
+  nonce: 13486,
+  maxPriorityFeePerGas: [BigNumber],
+  maxFeePerGas: [BigNumber],
+  gasPrice: null,
+  gasLimit: [BigNumber],
+  to: '0x82458d1C812D7c930Bb3229c9e159cbabD9AA8Cb',
+  value: [BigNumber],
+  data: '0xa8f0802e000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000000000000000000000a000000000000000000000000000000000000000000000000000000000000000e00000000000000000000000000000000000000000000000000000000000000001000000000000000000000000e0e1bc8c6cd1b81993e2fcfb80832d814886ea3800000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000024974e527a000000000000000000000000000000000000000000000000000000000000001500000000000000000000000000000000000000000000000000000000',
+  accessList: [],
+  hash: '0xc62155c952170be95c5c9485e3495ddb47279b78ef72be44262c63cdd6b4b0b6',
+  v: 0,
+  r: '0x02e9c97178303c1205a450fdd536c471eb529ed7eb171c8a394e397b88c56879',
+  s: '0x67f8c061176c7f5d73f59e6fe1396b49796195a57595a4d46434750b16253b18',
+  from: '0x4D2f8c3b4052aCA0360a50ae9B47cFC084cd1E28',
+  confirmations: 0,
+  wait: [Function (anonymous)]
+}
+```
+
+
+
