@@ -18,6 +18,7 @@ For example if the Court's Action Callback Bot has a transaction pending, typica
 ### Hardhat task `resend-tx`
 
 **Overview**
+
 ```bash
 $ yarn hardhat resend-tx --help
 Hardhat version 2.9.6
@@ -38,6 +39,7 @@ For global options help run: hardhat help
 :warning: In addition to the these task-specific options, we need to specify the `--network` global option.
 
 **Example**
+
 Once you have identified a stuck transaction, pass it via `--txid`.
 
 ```bash
