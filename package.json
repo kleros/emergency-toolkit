@@ -6,9 +6,10 @@
   "repository": "git@github.com:kleros/emergency-toolkit.git",
   "author": "Kleros",
   "license": "MIT",
-  "packageManager": "yarn@3.1.1",
+  "packageManager": "yarn@3.3.1",
   "volta": {
-    "node": "16.13.0"
+    "node": "16.13.0",
+    "yarn": "3.3.1"
   },
   "scripts": {
     "build": "hardhat compile",
